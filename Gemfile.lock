@@ -1,39 +1,19 @@
-GIT
-  remote: git://github.com/aniketschneider/giphy.git
-  revision: 89b82fe7b8ec520dddca44eb92f963cf0fb90e28
-  branch: translate-bug
-  specs:
-    giphy (3.1.0)
-      faraday (~> 0.9)
-      faraday_middleware (~> 0.9)
-      faraday_middleware-parse_oj (~> 0.3)
-      launchy (~> 2.4)
-
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.5.1)
-      public_suffix (~> 2.0, >= 2.0.2)
     builder (3.2.3)
     daemons (1.2.4)
     dotenv (2.2.0)
     eventmachine (1.2.3)
     faraday (0.12.0.1)
       multipart-post (>= 1.2, < 3)
-    faraday_middleware (0.11.0.1)
-      faraday (>= 0.7.4, < 1.0)
-    faraday_middleware-parse_oj (0.3.1)
-      faraday (~> 0.9)
-      faraday_middleware (>= 0.9.1, < 1.0)
-      oj (~> 2.0)
     jwt (1.5.6)
-    launchy (2.4.3)
-      addressable (~> 2.3)
+    metaclass (0.0.4)
     minitest (5.8.5)
+    mocha (1.2.1)
+      metaclass (~> 0.0.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
-    oj (2.18.5)
-    public_suffix (2.0.5)
     rack (1.6.5)
     rack-protection (1.5.3)
       rack
@@ -64,8 +44,8 @@ PLATFORMS
 DEPENDENCIES
   dotenv
   faraday
-  giphy!
   minitest
+  mocha
   rack-test
   rake
   sinatra

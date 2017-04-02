@@ -1,11 +1,14 @@
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'giphy'
+
 require 'sinatra'
 require 'slim'
-require 'faraday'
-require 'uri'
 require 'twilio-ruby'
 
 require 'dotenv'
 Dotenv.load
+
 
 get '/' do
   slim :index
@@ -15,22 +18,10 @@ post '/' do
   logger.info(params)
   # should validate phone number
   phone_number = params["phone_number"]
-  gif_url = related_gif_url(params["message"])
+  gif_url = Giphy.related_gif_url(params["message"])
   logger.info(gif_url)
   send_gif_text(phone_number, params["message"], gif_url)
   slim :sent
-end
-
-def related_gif_url(text)
-  encoded_text = URI.encode_www_form_component(text)
-  response = Faraday.get("http://api.giphy.com/v1/gifs/translate?s=#{encoded_text}&api_key=#{ENV["GIPHY_API_KEY"]}")
-  if response.status != 200
-    #throw an error
-    "no gif here"
-  else
-    json_response = JSON.parse(response.body)
-    json_response["data"]["images"]["downsized"]["url"]
-  end
 end
 
 def send_gif_text(phone_number, text, gif_url)

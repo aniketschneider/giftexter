@@ -9,5 +9,6 @@ gem "dotenv"
 gem "faraday"
 gem "minitest"
 gem 'rack-test'
+gem 'mocha'
 
 gem 'twilio-ruby', '~> 4.11.1'
