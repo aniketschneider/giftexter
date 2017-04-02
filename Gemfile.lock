@@ -29,6 +29,7 @@ GEM
     jwt (1.5.6)
     launchy (2.4.3)
       addressable (~> 2.3)
+    minitest (5.8.5)
     multi_json (1.12.1)
     multipart-post (2.0.0)
     oj (2.18.5)
@@ -36,6 +37,9 @@ GEM
     rack (1.6.5)
     rack-protection (1.5.3)
       rack
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rake (12.0.0)
     sinatra (1.4.8)
       rack (~> 1.5)
       rack-protection (~> 1.4)
@@ -59,7 +63,11 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  faraday
   giphy!
+  minitest
+  rack-test
+  rake
   sinatra
   slim
   thin

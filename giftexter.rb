@@ -1,13 +1,11 @@
 require 'sinatra'
 require 'slim'
-require 'giphy'
-require 'pry'
+require 'faraday'
+require 'uri'
 require 'twilio-ruby'
-require 'dotenv'
 
-configure do
-  Dotenv.load
-end
+require 'dotenv'
+Dotenv.load
 
 get '/' do
   slim :index
@@ -15,6 +13,7 @@ end
 
 post '/' do
   logger.info(params)
+  # should validate phone number
   phone_number = params["phone_number"]
   gif_url = related_gif_url(params["message"])
   logger.info(gif_url)
@@ -23,11 +22,15 @@ post '/' do
 end
 
 def related_gif_url(text)
-  Giphy::Configuration.configure do |config|
-    config.api_key = ENV["GIPHY_API_KEY"]
+  encoded_text = URI.encode_www_form_component(text)
+  response = Faraday.get("http://api.giphy.com/v1/gifs/translate?s=#{encoded_text}&api_key=#{ENV["GIPHY_API_KEY"]}")
+  if response.status != 200
+    #throw an error
+    "no gif here"
+  else
+    json_response = JSON.parse(response.body)
+    json_response["data"]["images"]["downsized"]["url"]
   end
-  gif = Giphy.translate(text)
-  gif.downsized_image.url.to_s
 end
 
 def send_gif_text(phone_number, text, gif_url)
@@ -42,7 +45,6 @@ def send_gif_text(phone_number, text, gif_url)
     :from => ENV["TWILIO_FROM_NUMBER"],
     :to => phone_number, 
     :body => text_with_gif,
-    #:media_url => gif_url,
   })
 end
 
