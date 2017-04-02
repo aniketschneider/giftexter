@@ -1,1 +1,6 @@
 .rvmrc
+.ruby-gemset
+*.swp
+
+# don't check in API keys
+.env
