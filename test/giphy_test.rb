@@ -10,7 +10,7 @@ class GiphyTest < Minitest::Test
     stub_id = "stub_id"
     stub_url = "http://i.giphy.com/#{stub_id}.gif"
 
-    response = Object.new
+    response = stub
     response.stubs(:status).returns(200)
     response.stubs(:body).returns(
       {
