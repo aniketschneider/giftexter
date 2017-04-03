@@ -14,7 +14,7 @@ bundle exec ruby ./giftexter.rb
 
 You will need a `.env` file with appropriate config values. See `.env.sample` for formatting and required configuration.
 
-Todo: Make the app deployable. Heroku maybe.
+The app is ready to be deployed to Heroku, but you will need to set the config variables (see `.env.sample`) remotely using `heroku config set KEY=<value>`
 
 # Known Issues
 
