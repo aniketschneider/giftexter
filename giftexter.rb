@@ -15,13 +15,14 @@ get '/' do
 end
 
 post '/' do
-  logger.info(params)
-  # should validate phone number
+  # should validate that it's a proper phone number
   phone_number = params["phone_number"]
-  gif_url = Giphy.related_gif_url(params["message"])
-  logger.info(gif_url)
-  send_gif_text(phone_number, params["message"], gif_url)
-  slim :sent
+  message = params["message"]
+
+  gif_url = Giphy.related_gif_url(message)
+  send_gif_text(phone_number, message, gif_url)
+
+  slim :sent, locals: { gif_url: gif_url }
 end
 
 def send_gif_text(phone_number, text, gif_url)
@@ -49,7 +50,6 @@ html
   head
     meta charset="utf-8"
     title Giftexter!
-    link rel="stylesheet" media="screen,projection" href="/styles.css"
   body
     h1 Giftexter!
     == yield
@@ -59,7 +59,9 @@ h2 Send a Text With a Related Gif
 == slim :input_form
 
 @@sent
-h2 Send a Text With a Related Gif
+h2 Sent this gif with your message:
+img src="#{gif_url}"
+h2 Send Another?
 == slim :input_form
 
 @@input_form
