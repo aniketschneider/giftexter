@@ -5,6 +5,7 @@ require 'json'
 class GiphyTest < Minitest::Test
   DIRECT_LINK_TEMPLATE = "http://i.giphy.com/%s.gif"
 
+  # TODO: too much stubbing, try decomposing this method
   def test_related_gif_url
     stub_text = "a text message"
     stub_id = "stub_id"

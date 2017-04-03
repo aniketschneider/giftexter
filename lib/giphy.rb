@@ -14,7 +14,7 @@ class Giphy
     request_url = TRANSLATE_ENDPOINT_TEMPLATE % [encoded_text, ENV["GIPHY_API_KEY"]]
     response = Faraday.get(request_url)
     if response.status != 200
-      raise NoGifError
+      raise APIError
     else
       json_response = JSON.parse(response.body)
       gif_id = json_response["data"]["id"]

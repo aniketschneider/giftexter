@@ -16,7 +16,7 @@ get '/' do
 end
 
 post '/send' do
-  # should validate that it's a proper phone number
+  # TODO: validate that it's a proper phone number
   phone_number = params["phone_number"]
   message = params["message"]
 
@@ -27,7 +27,6 @@ post '/send' do
   rescue
     slim :error
   end
-
 end
 
 
