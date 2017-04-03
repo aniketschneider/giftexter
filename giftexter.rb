@@ -32,6 +32,10 @@ end
 
 __END__
 
+# The app is pretty small right now, so I think it's reasonable to leave these
+# templates inline. Soon, however, they will have to be broken out into
+# separate files.
+
 @@layout
 doctype html
 html
