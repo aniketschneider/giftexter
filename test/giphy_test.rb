@@ -3,24 +3,25 @@ require 'giphy'
 require 'json'
 
 class GiphyTest < Minitest::Test
+  DIRECT_LINK_TEMPLATE = "http://i.giphy.com/%s.gif"
+
   def test_related_gif_url
     stub_text = "a text message"
-    stub_url = "http://www.example.com/example.gif"
-    stub_response = Object.new
-    stub_response.stubs(:status).returns(200)
-    stub_response.stubs(:body).returns(
+    stub_id = "stub_id"
+    stub_url = "http://i.giphy.com/#{stub_id}.gif"
+
+    response = Object.new
+    response.stubs(:status).returns(200)
+    response.stubs(:body).returns(
       {
         data: {
-          images: {
-            downsized: {
-              url: stub_url
-            }
-          }
+          id: stub_id
         }
-      }.to_json)
+      }.to_json
+    )
 
-    Faraday.stub(:get, stub_response) do
-      assert_equal(stub_url, Giphy.related_gif_url(stub_text))
-    end
+    Faraday.stubs(:get).returns(response)
+
+    assert_equal(stub_url, Giphy.related_gif_url(stub_text))
   end
 end

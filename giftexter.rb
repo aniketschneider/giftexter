@@ -36,6 +36,7 @@ def send_gif_text(phone_number, text, gif_url)
     :from => ENV["TWILIO_FROM_NUMBER"],
     :to => phone_number, 
     :body => text_with_gif,
+    :media_url => gif_url
   })
 end
 

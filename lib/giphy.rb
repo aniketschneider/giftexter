@@ -7,6 +7,8 @@ class Giphy
   TRANSLATE_ENDPOINT_TEMPLATE =
     "http://api.giphy.com/v1/gifs/translate?s=%s&api_key=%s"
 
+  GIF_DIRECT_LINK_TEMPLATE = "http://i.giphy.com/%s.gif"
+
   def self.related_gif_url(text)
     encoded_text = URI.encode_www_form_component(text)
     request_url = TRANSLATE_ENDPOINT_TEMPLATE % [encoded_text, ENV["GIPHY_API_KEY"]]
@@ -16,7 +18,8 @@ class Giphy
       "no gif here"
     else
       json_response = JSON.parse(response.body)
-      json_response["data"]["images"]["downsized"]["url"]
+      gif_id = json_response["data"]["id"]
+      GIF_DIRECT_LINK_TEMPLATE % gif_id
     end
   end
 end
